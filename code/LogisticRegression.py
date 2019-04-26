@@ -10,7 +10,7 @@ from preprocessing_scripts.labels import labels
 
 class LRModel:
     normalizer = Normalizer(norm ='l2')
-    model = LogisticRegression(C=1000,penalty='l2',random_state=0, solver='liblinear',multi_class='ovr')
+    model = LogisticRegression(C=1000,penalty='l2',random_state=10,class_weight='balanced' ,solver='liblinear',multi_class='ovr')
    
        
     def fitNormalizer(self,train):
@@ -41,7 +41,7 @@ class LRModel:
         
 if __name__ == '__main__':
     #read train data from train.csv
-    train_df = pd.read_csv('../data/train.csv',usecols = ['STAT_CAUSE_DESCR','LATITUDE','LONGITUDE','DISCOVERY_DATE','FIRE_SIZE'])
+    train_df = pd.read_csv('../data/train_new.csv',usecols = ['STAT_CAUSE_DESCR','LATITUDE','LONGITUDE','DISCOVERY_DATE','FIRE_SIZE','avg_temp'])
     y = pd.DataFrame()
     y['STAT_CAUSE_DESCR']=train_df['STAT_CAUSE_DESCR']
     y=labels.createLabel(y)
@@ -50,3 +50,4 @@ if __name__ == '__main__':
     model = LRModel()
     model.trainModel(train_df,y)
     model.save("../models/lrmodel")
+	

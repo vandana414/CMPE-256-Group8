@@ -16,5 +16,5 @@ class labels:
         labels['STAT_CAUSE_DESCR'][labels.STAT_CAUSE_DESCR =='Structure']=3
         labels['STAT_CAUSE_DESCR'][labels.STAT_CAUSE_DESCR =='Equipment Use']=3
         labels['STAT_CAUSE_DESCR'][labels.STAT_CAUSE_DESCR == 'Miscellaneous']=4
-        labels['STAT_CAUSE_DESCR'][labels.STAT_CAUSE_DESCR == 'Missing/Undefined']=5
+        labels['STAT_CAUSE_DESCR'][labels.STAT_CAUSE_DESCR == 'Missing/Undefined']=4
         return labels

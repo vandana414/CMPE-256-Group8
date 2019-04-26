@@ -5,7 +5,7 @@ sys.path.append("../")
 from preprocessing_scripts.labels import labels
 from LogisticRegression import LRModel
 
-test_df = pd.read_csv('../data/test.csv',usecols = ['STAT_CAUSE_DESCR','LATITUDE','LONGITUDE','STATE','DISCOVERY_DATE','FIRE_SIZE'])
+test_df = pd.read_csv('../data/test_new.csv',usecols = ['STAT_CAUSE_DESCR','LATITUDE','LONGITUDE','STATE','DISCOVERY_DATE','FIRE_SIZE','avg_temp'])
 
 #Separate the labels
 y_test = pd.DataFrame()
