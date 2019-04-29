@@ -7,12 +7,13 @@ import sys
 sys.path.append("../")
 from preprocessing_scripts.handlecategorical import categories
 from preprocessing_scripts.labels import labels
+from sklearn.utils import shuffle
+
 
 class LRModel:
     normalizer = Normalizer(norm ='l2')
-    model = LogisticRegression(C=1000,penalty='l2',random_state=10,class_weight='balanced' ,solver='liblinear',multi_class='ovr')
-   
-       
+    model = LogisticRegression(C=10,penalty='l2',random_state=10,solver='liblinear',multi_class='ovr',class_weight='balanced')
+
     def fitNormalizer(self,train):
         self.normalizer.fit(train)
     
@@ -24,7 +25,7 @@ class LRModel:
         train = categories.createCategorical(train)
         self.fitNormalizer(train)
         train = self.normalize(train)
-        self.model.fit(train, y)
+        self.model.fit(train,y)
     
     def predict(self,test):
         test = categories.createCategorical(test)
@@ -41,13 +42,17 @@ class LRModel:
         
 if __name__ == '__main__':
     #read train data from train.csv
-    train_df = pd.read_csv('../data/train_new.csv',usecols = ['STAT_CAUSE_DESCR','LATITUDE','LONGITUDE','DISCOVERY_DATE','FIRE_SIZE','avg_temp'])
+    train_df = pd.read_csv('../data/train.csv',usecols = ['STAT_CAUSE_DESCR','LATITUDE','LONGITUDE','DISCOVERY_DATE','FIRE_SIZE'])
     y = pd.DataFrame()
     y['STAT_CAUSE_DESCR']=train_df['STAT_CAUSE_DESCR']
+	
+	#create labels by grouping the causes
     y=labels.createLabel(y)
     y=y['STAT_CAUSE_DESCR'].astype(int)
     train_df = train_df.drop(columns=['STAT_CAUSE_DESCR'])
+  
+    #train and save the model
     model = LRModel()
     model.trainModel(train_df,y)
     model.save("../models/lrmodel")
-	
+    
