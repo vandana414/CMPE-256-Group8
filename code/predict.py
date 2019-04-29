@@ -3,6 +3,7 @@ import pandas as pd
 import sys
 sys.path.append("../")
 from preprocessing_scripts.labels import labels
+from NeuralNetwork import NNModel
 from LogisticRegression import LRModel
 from collections import Counter
 from sklearn.metrics import f1_score,confusion_matrix,accuracy_score
@@ -21,11 +22,25 @@ if __name__ == '__main__':
     y_test=labels.createLabel(y_test)
     y_test=y_test['STAT_CAUSE_DESCR'].astype(int)
     
-    #Predict using trained model
+    #Predict using Logistic Regression trained model
     model = LRModel()
     model.load_model("../models/lrmodel")
     y_pred = model.predict(test_df)
+    
 
     #Evaluate#
+    print("Logistic Regression Model")
+    print("------------------------------------------------------------------------------------------")
+    print("F1-score: %f"%(f1_score(y_test,y_pred,average='macro')))
+    print(confusion_matrix(y_test, y_pred))
+    
+    #Predict using Neural Network trained model
+    model = NNModel()
+    model.load_model("../models/nnmodel")
+    y_pred = model.predict(test_df)
+    
+    #Evaluate#
+    print("Nueral Network Model")
+    print("------------------------------------------------------------------------------------------")
     print("F1-score: %f"%(f1_score(y_test,y_pred,average='macro')))
     print(confusion_matrix(y_test, y_pred))
