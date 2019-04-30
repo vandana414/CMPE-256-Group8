@@ -64,7 +64,7 @@ if __name__ == '__main__':
     train_df = train_df.drop(columns=['STAT_CAUSE_DESCR'])
   
     #train and save the model
-    model = LRModel()
+    model = NNModel()
     model.trainModel(train_df,y)
     model.save("../models/nnmodel")
     
