@@ -9,14 +9,14 @@ class categories:
         fire_df['MONTH'] = pd.DatetimeIndex(fire_df['DATE']).month
 
         #create a column for each day_of_week
-        features = ['mon', 'tue', 'wed', 'thur','fri', 'sat','sun']
+        features = ['mon', 'tue', 'wed', 'thur','fri', 'sat']
         day_features = pd.DataFrame(0, index=np.arange(len(fire_df)), columns=features)
 
         for f in range(len(features)):
             day_features[features[f]] = (fire_df.DAY_OF_WEEK == (f))*1
 
         #create a column for each month
-        features = ['jan', 'feb', 'mar', 'apr', 'may','jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+        features = ['jan', 'feb', 'mar', 'apr', 'may','jun', 'jul', 'aug', 'sep', 'oct', 'nov']
         month_features = pd.DataFrame(0, index=np.arange(len(fire_df)), columns=features)
         for f in range(len(features)):
             month_features[features[f]] = (fire_df.MONTH == (f+1))*1
