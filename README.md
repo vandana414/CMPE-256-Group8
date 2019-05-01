@@ -16,5 +16,5 @@ This will train and save models in models folder
 -----------------------------------------------------------------------------------------------------------------
 To get the predictions for Logistic Regression and Neural Network model:
 
-``python predict.py```
+```python predict.py```
 
