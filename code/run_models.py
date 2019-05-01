@@ -16,8 +16,10 @@ from NeuralNetwork import NNModel
 from LogisticRegression import LRModel
 from NaiveBayes import NBModel 
 from DecisionTree import DecTreeModel
+from RandomForests import RandomFModel
 from SVM import SVMModel
 from Bagging import BaggingModel
+from MergeLabels import MergeLabel
 
 def main_p():
     print("Running ......")
@@ -57,6 +59,27 @@ def main_p():
     print("Fire Class Prediction")
     SVMModel.run_SVM(X, y, 0.20)
     BaggingModel.run_Bagging(X, y, 0.20)
+	
+	
+	#Random Forests Classifier
+    firedata = read_sql.read_data()
+	firedata_copy = firedata.copy()
+    firedata = process_df.preprocess(firedata)
+	firedata['LABEL'] = firedata_copy['STAT_CAUSE_DESCR'].apply(lambda x: MergeLabel.set_label(x)) 
+	firedata['DISCOVERY_DATE'] = firedata_copy['DISCOVERY_DATE'].copy()
+	firedata = firedata.reindex(columns=['SOURCE_REPORTING_UNIT_NAME', 'STATE', 'LATITUDE', 'LONGITUDE', 'FIRE_SIZE_CLASS', 'FIRE_YEAR', 'DISCOVERY_DATE','STAT_CAUSE_DESCR','CONT_DATE','FIRE_SIZE','LABEL','DAY_OF_WEEK','MONTH'])
+    
+	X = firedata[['FIRE_YEAR','DAY_OF_WEEK','DISCOVERY_DATE','MONTH','STATE', 'LATITUDE','LONGITUDE','FIRE_SIZE']]
+    y = firedata['LABEL']
+	print("Running ......")
+    print("Fire Cause Model and Prediction")
+    RandomFModel.run_RF(X, y, 0.20)
+
+    X = firedata[['FIRE_YEAR','DAY_OF_WEEK','DISCOVERY_DATE','MONTH','STATE', 'LATITUDE','LONGITUDE','STAT_CAUSE_DESCR']]
+    y = firedata['FIRE_SIZE_CLASS']
+    print("Running ......")
+    print("Fire Class Prediction")
+    RandomFModel.run_RF(X, y, 0.20)
 
     
     
