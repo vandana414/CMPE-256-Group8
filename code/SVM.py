@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# coding: utf-8
+
 from pandas_ml import ConfusionMatrix
 from sklearn import svm
 from sklearn.metrics import classification_report,accuracy_score 
@@ -6,7 +9,7 @@ from sklearn.model_selection import train_test_split
 class SVMModel:
     def run_SVM(X, y, split):
         X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=split)
-        model = svm.SVC(gamma=0.1)
+        model = svm.SVC(gamma='scale')
         model.fit(X_train,y_train)
         y_pred = model.predict(X_test)
         print(y_pred) 

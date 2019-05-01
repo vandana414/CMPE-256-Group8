@@ -1,7 +1,11 @@
+#!/usr/bin/env python
+# coding: utf-8
+
 from pandas_ml import ConfusionMatrix
 from sklearn.ensemble import BaggingClassifier
 from sklearn.metrics import classification_report,accuracy_score 
 from sklearn.model_selection import train_test_split
+
 class BaggingModel:
     def run_Bagging(X, y, split):
         X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=split)
