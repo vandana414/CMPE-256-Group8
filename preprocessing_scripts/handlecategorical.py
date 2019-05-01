@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import pickle
 
 class categories:
     def createCategorical(fire_df):
