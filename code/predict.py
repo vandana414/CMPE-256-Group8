@@ -32,6 +32,7 @@ if __name__ == '__main__':
     print("Logistic Regression Model")
     print("------------------------------------------------------------------------------------------")
     print("F1-score: %f"%(f1_score(y_test,y_pred,average='macro')))
+    print("Accuracy Score: %f"%(accuracy_score(y_test,y_pred)))
     print(confusion_matrix(y_test, y_pred))
     
     #Predict using Neural Network trained model
@@ -43,4 +44,5 @@ if __name__ == '__main__':
     print("Nueral Network Model")
     print("------------------------------------------------------------------------------------------")
     print("F1-score: %f"%(f1_score(y_test,y_pred,average='macro')))
+    print("Accuracy Score: %f"%(accuracy_score(y_test,y_pred)))
     print(confusion_matrix(y_test, y_pred))

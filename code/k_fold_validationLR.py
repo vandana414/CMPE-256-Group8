@@ -2,6 +2,8 @@ import pandas as pd
 from LogisticRegression import LRModel
 from sklearn.model_selection import KFold
 from sklearn.metrics import f1_score,confusion_matrix,accuracy_score
+import sys
+sys.path.append("../")
 from preprocessing_scripts.labels import labels
 
 train_df = pd.read_csv('../data/train.csv',usecols = ['STAT_CAUSE_DESCR','LATITUDE','LONGITUDE','DISCOVERY_DATE','FIRE_SIZE'])
@@ -14,7 +16,7 @@ train_df = train_df.drop(columns=['STAT_CAUSE_DESCR'])
 
 
 #K-fold validation
-kf = KFold(n_splits=3)
+kf = KFold(n_splits=10)
 for train_index, test_index in kf.split(train_df):
     print("TRAIN:", train_index, "TEST:", test_index)
     X_train, X_test = train_df.iloc[train_index].reset_index(drop=True), train_df.iloc[test_index].reset_index(drop=True)
