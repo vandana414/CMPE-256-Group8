@@ -14,7 +14,7 @@ The output file goes as output.txt in data folder
 
 -----------------------------------------------------------------------------------------------------------------
 The models for logistic regression and newural network are trained and stored in models folder, but if it gives some error the models needs to be trained again. 
-To train the models execute classes.py (execute this if python predict.py fails)
+To train the models execute below commands(execute this if python predict.py fails)
 
 ```python LogisticRegression.py```
 
